@@ -1,0 +1,279 @@
+.titre{
+  
+    font-size: 30px;
+    
+    
+}
+.titre2{
+    color:blue
+}
+.logo{
+    width: 50px;
+    height: 50px;
+   
+}
+.slogan{
+    font-size: 30px;
+    margin-left: 10px;
+}
+.slogan2{
+color:blue;
+}
+.description{
+   
+    margin-left: 10px;
+    padding-top: 20px;
+    color:darkgray
+}
+.image{
+    width: 20em;
+    height: 20em;
+}
+.footer{
+   
+    margin-left: 10px;
+   
+}
+.lien{
+    color:blue;
+    text-decoration:none;
+}
+.lien:hover{
+    color:gray;
+}
+.creationDeCompte{
+    width: 100em;
+    height: 100em;
+    background-color:rgb(216, 223, 234);
+    text-align: center;
+   
+  
+}
+.titreCompte{
+  
+    font-size: 20px;
+
+    
+    
+}
+.logo1{
+    width: 30px;
+    height: 30px;
+     display:flex;
+   
+   
+}
+.sloganCompte{
+    position: relative;
+    bottom: 20px;
+    color:darkgray;
+    
+    
+    
+}
+.descriptionCompte{
+   width: 22em;
+    height: 40em;
+    background-color:white;
+    margin-left: 625px;
+    padding-top: 25px;
+    border-radius: 5px;
+   
+}
+.titreCompte1 {
+    font-size: 25px;
+
+}
+.descriptionCompte1{
+    color:darkgray;
+    margin-top: 10px;
+}
+.formulaireCreationCompte{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 2em;
+    
+}
+
+.element{
+    padding: 10px;
+    padding-right: 10em;
+    border-radius: 7px;
+}
+.element1{
+   margin-right: 16em;
+}
+.element2{
+   margin-right: 15em;
+}
+.element3{
+   margin-right: 14em;
+}
+.element4{
+   margin-right: 15.5em;
+}
+.element5{
+   margin-right: 13em;
+}
+.sumitCompte{
+ padding: 10px;
+   
+    border-radius: 7px;
+background-color: blue;
+color: white;
+border-color: white;
+text-align: center;
+border: none;
+margin-top: 1em;
+
+}
+.formulaireConnexion{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 2em;
+    
+}
+.descriptionConnexion{
+   width: 22em;
+    height: 26em;
+    background-color:white;
+    margin-left: 625px;
+    padding-top: 25px;
+    border-radius: 5px;
+   
+}
+.sumitConnexion{
+ padding: 10px;
+    border-radius: 7px;
+background-color: blue;
+color: white;
+border-color: white;
+text-align: center;
+border: none;
+
+
+}
+.motPasseOublie{
+    text-decoration: none;
+}
+.motPasseOublie:hover{
+    color: gray;
+}
+.titreRenitialiser{
+    font-size: 1.5em;
+}
+.pageAjoutJob{
+     width: 100em;
+    height: 100em;
+    background-color:rgb(216, 223, 234);
+    text-align: center;
+}
+.mainAjoutJob{
+width: 22em;
+    height: 50em;
+    background-color:white;
+    margin-left: 625px;
+    padding-top: 25px;
+    border-radius: 5px;
+}
+
+.boutonModal1 {
+  border: 2px solid white;
+  background-color: white;
+  padding: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Quand on survole le bouton */
+.boutonModal1:hover {
+  border-color: blue;
+}
+
+/* Pour que l'image ne bloque pas le hover */
+.imageModal1 {
+  width: 45px;
+  height: 45px;
+  pointer-events: none; /* <-- important */
+}
+
+.boutonTitreHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+
+.titreAjout1{
+  
+    font-size: 25px;
+    
+    
+}
+.titreAjout2{
+    font-size: 35px;
+}
+.titrePricipale{
+    
+    font-size: 19px;
+    margin-bottom: 50em;
+    color: blue;
+}
+.phrase{
+    color: gray;
+}
+
+.noteArea {
+    width: 260px;
+    height: 80px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    resize: vertical; /* tu peux agrandir vers le bas */
+    margin-right: 5px;
+}
+
+.noteArea:focus {
+    border-color: blue;
+    outline: none;
+}
+.elementAjout1{
+   margin-right: 14em;
+}
+.elementAjout2{
+   margin-right: 16em;
+}
+.elementAjout3{
+   margin-right: 16em;
+}
+.elementAjout4{
+   margin-right: 15.5em;
+}
+.elementAjout5{
+   margin-right: 15em;
+}
+.imageFooter{
+width: 45px;
+height: 45px;
+
+
+}
+.titreFooter{
+    color: green;
+    position: relative;
+    bottom: 7px;
+}
+.sumitAjout{
+ padding: 10px;
+   
+    border-radius: 7px;
+background-color: blue;
+color: white;
+border-color: white;
+text-align: center;
+border: none;
+
+
+}
