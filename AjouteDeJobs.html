@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KeepJobs creation de compte</title>
+    <title>KeepJobs ajouter un job</title>
     <link rel="stylesheet" href="css/fichier.css">
-    <script type="module" src="java/java.js"></script>
+    <script type="module" src="java/java.js" defer></script>
     
 </head>
 <body class="pageAjoutJob">
@@ -35,42 +35,59 @@
         </section>
 
         <section>
-            <form class="formulaireCreationCompte">
-       <div > <strong class="elementAjout1">Entreprise:</strong><br>
-        <input type="text" name="nom" placeholder="Ex: KeepJobs"  class="element">
+            <form class="formulaireCreationCompte" id="formulaireRenitialisation">
+       <div > <strong class="elementAjout1" >Entreprise:</strong><br>
+        <input type="text" name="entreprise" placeholder="Ex: KeepJobs"  class="element" id="entreprise"><br>
+        <span id="entrepriseOublie"></span>
        </div>
-       <div ><strong class="elementAjout2">Poste:</strong> <br>
-        <input type="text" name="prenom" placeholder="Ex: Developpeur Web" class="element">
+       <div ><strong class="elementAjout2" >Poste:</strong> <br>
+        <input type="text" name="poste" placeholder="Ex: Developpeur Web" class="element" id="poste"><br>
+        <span id="posteOublie"></span><br>
        </div>
        <div>
-        <strong class="elementAjout3">Date:</strong><br>
-        <input type="text" placeholder="jj/mm/aaa" class="element">
+        <strong class="elementAjout3" >Date:</strong><br>
+        <input type="text" placeholder="jj/mm/aaa" class="element" id="date"><br>
+        <span id="dateOublie"></span>
        </div>
-       <div ><strong class="elementAjout4">Statut:</strong> <br>
+       <div ><strong class="elementAjout4" >Statut:</strong> <br>
       
-    <select name="statut" class="element">
+    <select name="statut" class="element" id="statut">
         <option value="">-- Choisir un statut --</option>
         <option value="envoye">Envoyé</option>
         <option value="entrevue">Entrevue</option>
         <option value="embauche">Embauché</option>
         <option value="refuse">Refusé</option>
     </select>
+    <br>
+    <span id="statutOublie"></span>
 </div>
 <div>
+        <strong class="elementAjout3" >Lieu:</strong><br>
+        <input type="text" placeholder="Montreal,Quebec" class="element" id="lieu"><br>
+        <span id="lieuOublie"></span>
+       </div>
+<div>
     <strong class="elementAjout5">Note :</strong> <br>
-    <textarea name="note" class="element noteArea" placeholder="Ajouter une note..."></textarea>
+    <textarea name="note" class="element noteArea" placeholder="Ajouter une note..." id="note"></textarea>
 </div>
 
        <div>
-        <button class="sumitAjout">Ajouter le job</button>
+        <button class="sumitAjout" id="bouttonAjouter">Ajouter le job</button>
        </div>
        </form>
         </section>
     
         <section>
-            <footer class="footer">
-<a href="mesJobs.html"><img src="burger bar.jpg" alt="image" class="imageFooter"></a><br>
-<span class="titreFooter">Mes jobs</span>
+           <footer class="footer">
+    <div class="footer-item">
+        <a href="mesJobs.html" class="footer-link">
+            <img src="burger bar.jpg" alt="image" class="imageFooter">
+            <span class="badge" id="nombreJob"></span>
+        </a>
+        <span class="titreFooter">Mes jobs</span>
+    </div>
+</footer>
+
 </footer>
         </section>
     </main>

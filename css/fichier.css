@@ -172,9 +172,9 @@ border: none;
 }
 .mainAjoutJob{
 width: 22em;
-    height: 50em;
+    height: 55em;
     background-color:white;
-    margin-left: 625px;
+    margin-left: 550px;
     padding-top: 25px;
     border-radius: 5px;
 }
@@ -249,21 +249,25 @@ width: 22em;
    margin-right: 16em;
 }
 .elementAjout4{
-   margin-right: 15.5em;
+   margin-right: 15em;
 }
 .elementAjout5{
    margin-right: 15em;
 }
 .imageFooter{
-width: 45px;
-height: 45px;
+width: 30px;
+height: 30px;
+border: 1px solid;
+border-color: black;
 
 
 }
+footer{
+    margin-top: 10px;
+}
 .titreFooter{
-    color: green;
-    position: relative;
-    bottom: 7px;
+    color: blue;
+   
 }
 .sumitAjout{
  padding: 10px;
@@ -276,4 +280,127 @@ text-align: center;
 border: none;
 
 
+}
+.pageMesJob{
+    background-color:rgb(216, 223, 234);
+    text-align: center;
+}
+.mainMesJob{
+width: 40em;
+min-height: 100%;
+    background-color:white;
+    margin-left: 435px;
+    padding-top: 25px;
+    border-radius: 5px;
+   
+}
+.oublie{
+    color: red;
+}
+.panier-vide {
+   color: red;
+    font-style: italic;
+}
+
+
+.job-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    position: relative;
+    left: 1.5em;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 35em;
+    
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    background: #6A5BFF;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 15px;
+  
+
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.panier-vide {
+    text-align: center;
+    color:red;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.lienJob {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px; 
+}
+.entrepriseJob{
+  
+  
+   font-size: 22px;
+   
+}
+.posteJob{
+   
+    color: gray;
+    font-size: 15px;
+}
+.posteDate{
+
+    color: gray;
+    font-size: 12px;
+}
+.item{
+    display: flex;
+    flex-direction: row;
+    
+}
+.item1{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+
+.footer-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.imageFooter {
+    width: 50px;
+    height: 50px;
+}
+
+.badge {
+    position: absolute;
+    bottom: 6.5em;        
+    right: 11em;
+    background:blue;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
 }
