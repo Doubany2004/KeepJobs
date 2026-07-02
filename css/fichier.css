@@ -542,3 +542,71 @@ font-size: 18px;
     border:none;
     background-color: white;
 }
+
+.modalModifierSupprimer {
+  border: 2px solid white;
+  background-color: white;
+  position:relative;
+  left: 21em;
+  bottom: 5em;
+  font-size: 20px;
+}
+.modalModifierSupprimer:hover {
+  border-color: blue;
+  color:blue;
+}
+.modal{
+  display: none; /* Masqué par défaut */
+  position: fixed; /* Reste en place même lors du défilement */
+  z-index: 1; /* Au-dessus de tout le reste */
+  left: 10px;
+  top: 10px;
+  width: 15em; /* Largeur totale */
+  height: 5em; /* Hauteur totale */
+  overflow: auto; /* Active le défilement si nécessaire */
+ background-color: white; /* Couleur de fond */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+    border-radius: 5px;
+}
+
+.modalBtn{
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modalBtndanger{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.closeBtn{
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.modalSupprimer {
+    display: none;
+    position: fixed;
+    left: 10px;
+  top: 10px;
+    width: 15em; height: 5em;
+    background: white;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+}

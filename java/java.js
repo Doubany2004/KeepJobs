@@ -108,6 +108,7 @@ const nombreJob=document.getElementById("nombreJob");
 const zoneAffichageJob=document.getElementById("zoneAffichageJob")
 if(zoneAffichageJob){
     affichageJob()
+    modalModifierSupprimer()
 }
 
 function affichageJob(){
@@ -131,6 +132,7 @@ else{
 
             item.innerHTML = `
 
+
             <div class="item">
              <div class="logo">
                <a href="detailJob.html?id=${panier[i].id}" class="lienJob">${panier[i].logo}</a>
@@ -138,7 +140,7 @@ else{
 
                <div class="item1">
                
-               
+ 
                <div>
                  <strong class ="entrepriseJob"> ${panier[i].entreprise}</strong>
                </div>
@@ -155,8 +157,12 @@ else{
                ${panier[i].lieu}
            
             </div>
-               
-               
+
+                                    <div>
+<button class="modalModifierSupprimer" data-id="${panier[i].id}">::</button>
+</div>
+
+
 `;
 
             zoneAffichageJob.appendChild(item);
@@ -254,5 +260,73 @@ if (zone) {
     }
 }
 
+//la fonction modal pour modifier et supprimer les jobs
+function modalModifierSupprimer(){
 
-           
+    // Création du modal actions
+    const modalAction = document.createElement("div");
+    modalAction.id = "modalAction";
+    modalAction.classList.add("modal");
+
+    modalAction.innerHTML = `
+        <div class="modalContent">
+        <button id="btnModifier" class="modalBtn">Modifier</button>
+            <button id="btnSupprimer" class="modalBtndanger">Supprimer</button>
+            <button id="closeModalActions" class="closeBtn">Fermer</button>
+        </div>
+    `;
+    document.body.appendChild(modalAction);
+
+    // Création du modal confirmation
+    const modalConfirm = document.createElement("div");
+    modalConfirm.id = "modalConfirm";
+    modalConfirm.classList.add("modalSupprimer");
+
+    modalConfirm.innerHTML = `
+        <div class="modalContent">
+            <div>Voulez-vous supprimer ce job ?</div>
+            <button id="confirmYes" class="modalBtndanger">Oui</button>
+            <button id="confirmNo" class="closeBtn">Non</button>
+        </div>
+    `;
+    document.body.appendChild(modalConfirm);
+
+    // Sélection des boutons ::
+    const boutons = document.querySelectorAll(".modalModifierSupprimer");
+
+    boutons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const idJob = btn.dataset.id; //  On récupère l’ID du job
+            modalAction.dataset.id = idJob; //  On stocke l’ID dans le modal
+            modalAction.style.display = "flex";// ouvrir le modal
+        });
+    });
+
+    // Bouton fermer
+    document.getElementById("closeModalActions").addEventListener("click", () => {
+        modalAction.style.display = "none";// fermer le modal
+    });
+
+    // Bouton supprimer → ouvre confirmation
+    document.getElementById("btnSupprimer").addEventListener("click", () => {
+        modalAction.style.display = "none";
+        modalConfirm.style.display = "flex";
+    });
+
+    // Bouton Non
+    document.getElementById("confirmNo").addEventListener("click", () => {
+        modalConfirm.style.display = "none";
+    });
+
+    // Bouton Oui → supprime
+    document.getElementById("confirmYes").addEventListener("click", () => {
+        const idJob = modalAction.dataset.id;
+
+        const panier = JSON.parse(localStorage.getItem("panier")) || [];
+        const nouveauPanier = panier.filter(j => j.id != idJob);
+
+        localStorage.setItem("panier", JSON.stringify(nouveauPanier));
+
+        window.location.href = "mesJobs.html";// recharger la page pour mettre à jour l'affichage
+    });
+}
