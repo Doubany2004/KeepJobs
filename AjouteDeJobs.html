@@ -21,7 +21,7 @@
                 </button>
             </div>
      <div  class="titreAjoutJob">
-        <span class="titreAjout1">Keep</span> 
+        <span class="titreAjout1">Keep</span>
          <span class="titreAjout2">Jobs</span>
         </div>
         <div>
@@ -42,16 +42,32 @@
        </div>
        <div ><strong class="elementAjout2" >Poste:</strong> <br>
         <input type="text" name="poste" placeholder="Ex: Developpeur Web" class="element" id="poste"><br>
-        <span id="posteOublie"></span><br>
+        <span id="posteOublie"></span>
        </div>
+
+   <div ><strong class="elementAjout6" >Type de contrat:</strong> <br>
+    <select name="contrat" class="elementSelect" id="contrat">
+        <option value="">-- Choisir le contrat --</option>
+        <option value="Permanent">Permanent</option>
+        <option value="Partiel">Partiel</option>
+        <option value="Temporaire">Temporaire</option>
+        <option value="Stage">Stage</option>
+    </select>
+    <br>
+    <span id="contratOublie"></span>
+</div>
+
+<div > <strong class="elementAjout7" >Salaire:</strong><br>
+        <input type="text" name="entreprise" placeholder="Ex: 18.75$"  class="element" ><br>
+       </div>
+
        <div>
         <strong class="elementAjout3" >Date:</strong><br>
         <input type="text" placeholder="jj/mm/aaa" class="element" id="date"><br>
         <span id="dateOublie"></span>
        </div>
        <div ><strong class="elementAjout4" >Statut:</strong> <br>
-      
-    <select name="statut" class="element" id="statut">
+    <select name="statut" class="elementSelect" id="statut">
         <option value="">-- Choisir un statut --</option>
         <option value="envoye">Envoyé</option>
         <option value="entrevue">Entrevue</option>
@@ -67,7 +83,7 @@
         <span id="lieuOublie"></span>
        </div>
 <div>
-    <strong class="elementAjout5">Note :</strong> <br>
+    <strong class="elementAjout5">Note :</strong><br>
     <textarea name="note" class="element noteArea" placeholder="Ajouter une note..." id="note"></textarea>
 </div>
 
