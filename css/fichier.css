@@ -189,7 +189,7 @@ border: none;
 width: 22em;
     height: 65em;
     background-color:white;
-    margin-left: 550px;
+    margin-left: 600px;
     padding-top: 25px;
     border-radius: 5px;
 }
@@ -311,7 +311,7 @@ border: none;
 width: 40em;
 min-height: 100%;
     background-color:white;
-    margin-left: 435px;
+    margin-left: 480px;
     padding-top: 25px;
     border-radius: 5px;
    
@@ -565,13 +565,12 @@ font-size: 18px;
   height: 5em; /* Hauteur totale */
   overflow: auto; /* Active le défilement si nécessaire */
  background-color: white; /* Couleur de fond */
-  
   display: flex;
   justify-content: center;
   align-items: center;
-
-  border: none;
+  border: none; 
     border-radius: 5px;
+    display: none;/* Masqué par défaut pour l'affichage  */
 }
 
 .modalBtn{

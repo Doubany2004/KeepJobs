@@ -328,5 +328,64 @@ function modalModifierSupprimer(){
         localStorage.setItem("panier", JSON.stringify(nouveauPanier));
 
         window.location.href = "mesJobs.html";// recharger la page pour mettre à jour l'affichage
+
+        
+    });
+
+    // redirection vers la page de modification lors du clic sur le bouton "Modifier"
+
+    document.getElementById("btnModifier").addEventListener("click", () => {
+        const idJob = modalAction.dataset.id;
+        window.location.href = `modifierJob.html?id=${idJob}`;
+    });
+}
+
+const bouttonModifier = document.getElementById("bouttonModifier");
+
+if (bouttonModifier) {
+    modifierJob();
+}
+
+// fonction pour les modifications des jobs
+function modifierJob() {
+
+    // 1. Récupérer l’ID dans l’URL
+    const params = new URLSearchParams(window.location.search);
+    const idModifier = params.get("id");
+
+    // 2. Charger les jobs depuis localStorage
+    const panier = JSON.parse(localStorage.getItem("panier")) || [];
+
+    // 3. Trouver le job à modifier
+    const job = panier.find(j => j.id == idModifier);
+
+    // 4. Pré-remplir les champs
+    if (job) {
+        document.getElementById("entreprise").value = job.entreprise;
+        document.getElementById("poste").value = job.poste;
+        document.getElementById("date").value = job.date;
+        document.getElementById("statut").value = job.statut;
+        document.getElementById("lieu").value = job.lieu;
+        document.getElementById("contrat").value = job.contrat;
+        document.getElementById("note").value = job.note || "";
+    }
+
+    // 5. Enregistrer les modifications
+    document.getElementById("bouttonModifier").addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const index = panier.findIndex(j => j.id == idModifier);
+
+        panier[index].entreprise = document.getElementById("entreprise").value;
+        panier[index].poste = document.getElementById("poste").value;
+        panier[index].date = document.getElementById("date").value;
+        panier[index].statut = document.getElementById("statut").value;
+        panier[index].lieu = document.getElementById("lieu").value;
+        panier[index].contrat = document.getElementById("contrat").value;
+        panier[index].note = document.getElementById("note").value;
+
+        localStorage.setItem("panier", JSON.stringify(panier));
+
+        window.location.href = "mesJobs.html";
     });
 }

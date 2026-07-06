@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KeepJobs modifier un job</title>
+    <link rel="stylesheet" href="css/fichier.css">
+    <script type="module" src="java/java.js" defer></script>
+    
+</head>
+<body class="pageAjoutJob">
+    <main class="mainAjoutJob">
+        <section>
+    <header>
+        <div class="boutonTitreHeader">
+            <div>
+                <button class="boutonModal1">
+                    <img src="burger bar.jpg" alt="image" class="imageModal1">
+                </button>
+            </div>
+     <div  class="titreAjoutJob">
+        <span class="titreAjout1">Keep</span>
+         <span class="titreAjout2">Jobs</span>
+        </div>
+        <div>
+            <img src="logo.png" alt="image du Logo" class="logo">
+        </div>
+         </div>
+         <span class="titrePricipale">Modifier le job</span><br>
+         <span class="phrase">Modifier les informations de votre candidature</span>
+
+</header>
+        </section>
+
+        <section>
+            <form class="formulaireCreationCompte" id="formulaireRenitialisation">
+       <div > <strong class="elementAjout1" >Entreprise:</strong><br>
+        <input type="text" name="entreprise" placeholder="Ex: KeepJobs"  class="element" id="entreprise"><br>
+
+       </div>
+       <div ><strong class="elementAjout2" >Poste:</strong> <br>
+        <input type="text" name="poste" placeholder="Ex: Developpeur Web" class="element" id="poste"><br>
+       
+       </div>
+
+   <div ><strong class="elementAjout6" >Type de contrat:</strong> <br>
+    <select name="contrat" class="elementSelect" id="contrat">
+        <option value="">-- Choisir le contrat --</option>
+        <option value="Permanent">Permanent</option>
+        <option value="Partiel">Partiel</option>
+        <option value="Temporaire">Temporaire</option>
+        <option value="Stage">Stage</option>
+    </select>
+    <br>
+   
+</div>
+
+<div > <strong class="elementAjout7" >Salaire:</strong><br>
+        <input type="text" name="entreprise" placeholder="Ex: 18.75$"  class="element" ><br>
+       </div>
+
+       <div>
+        <strong class="elementAjout3" >Date:</strong><br>
+        <input type="text" placeholder="jj/mm/aaa" class="element" id="date"><br>
+        
+       </div>
+       <div ><strong class="elementAjout4" >Statut:</strong> <br>
+    <select name="statut" class="elementSelect" id="statut">
+        <option value="">-- Choisir un statut --</option>
+        <option value="envoye">Envoyé</option>
+        <option value="entrevue">Entrevue</option>
+        <option value="embauche">Embauché</option>
+        <option value="refuse">Refusé</option>
+    </select>
+    <br>
+   
+</div>
+<div>
+        <strong class="elementAjout3" >Lieu:</strong><br>
+        <input type="text" placeholder="Montreal,Quebec" class="element" id="lieu"><br>
+       </div>
+<div>
+    <strong class="elementAjout5">Note :</strong><br>
+    <textarea name="note" class="element noteArea" placeholder="Ajouter une note..." id="note"></textarea>
+</div>
+
+       <div>
+        <button class="sumitAjout" id="bouttonModifier">Modifier le job</button>
+       </div>
+       </form>
+        </section>
+    
+        <section>
+           <footer class="footer">
+    <div class="footer-item">
+        <a href="mesJobs.html" class="footer-link">
+            <img src="burger bar.jpg" alt="image" class="imageFooter">
+            <span class="badge" id="nombreJob"></span>
+        </a>
+        <span class="titreFooter">Mes jobs</span>
+    </div>
+</footer>
+
+</footer>
+        </section>
+    </main>
+
+
+  
+</body>
+
