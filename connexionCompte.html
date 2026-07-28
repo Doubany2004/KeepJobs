@@ -7,6 +7,8 @@
 
     <title>KeepJobs connexion</title>
     <link rel="stylesheet" href="css/fichier.css">
+   
+
     <script type="module" src="java/java.js"></script>
     
 </head>
@@ -30,16 +32,17 @@
        </div>
        <form class="formulaireConnexion">
        <div ><strong class="element4">Email:</strong> <br>
-        <input type="email" name="email" placeholder="Entrez votre email" class="element">
+        <input type="email" name="email" placeholder="Entrez votre email" class="element" id="email">
        </div>
        <div ><strong class="element5">Mot de passe:</strong> <br>
-        <input type="password" name="mot_de_passe" placeholder="Créez un mot de passe"  class="element">
+        <input type="password" name="mot_de_passe" placeholder="Créez un mot de passe"  class="element" id="mot_de_passe">
+        <br> <span class="erreur" id="erreurMotDePasseEmail"></span>
        </div>
        <div>
         <a href="MotPasseOublie.html" class="motPasseOublie">Mot de passe oublié?</a>
        </div>
        <div>
-        <button class="sumitConnexion">Se connecter</button>
+        <button class="sumitConnexion" id="bouttonConnexion" type="button">Se connecter</button>
        </div>
        </form>
     

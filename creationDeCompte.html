@@ -6,9 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeepJobs creation de compte</title>
     <link rel="stylesheet" href="css/fichier.css">
-    <script type="module" src="java/java.js"></script>
+     <script type="module" src="java/java.js"></script>
+
+
+    
     
 </head>
+
 <body class="creationDeCompte">
 <header>
      <h5 class="titreCompte">
@@ -29,23 +33,33 @@
        </div>
        <form class="formulaireCreationCompte">
        <div > <strong class="element1">Nom:</strong><br>
-        <input type="text" name="nom" placeholder="Entrez votre nom"  class="element">
+        <input type="text" name="nom" placeholder="Entrez votre nom"  class="element" id="nom">
+        <br> <span class="erreur" id="erreurNom"></span>
        </div>
        <div ><strong class="element2">Prenom:</strong> <br>
-        <input type="text" name="prenom" placeholder="Entrez votre prenom" class="element">
+        <input type="text" name="prenom" placeholder="Entrez votre prenom" class="element" id="prenom">
+        <br> <span class="erreur" id="erreurPrenom"></span>
        </div>
        <div>
         <strong class="element3">Profession</strong><br>
-        <input type="text" placeholder="Entrez votre profession" class="element">
+        <input type="text" placeholder="Entrez votre profession" class="element" id="profession">
+        <br> <span class="erreur" id="erreurProfession"></span>
        </div>
        <div ><strong class="element4">Email:</strong> <br>
-        <input type="email" name="email" placeholder="Entrez votre email" class="element">
+        <input type="email" name="email" placeholder="Entrez votre email" class="element" id="email">
+        <br> <span class="erreur" id="erreurEmail"></span>
        </div>
        <div ><strong class="element5">Mot de passe:</strong> <br>
-        <input type="password" name="mot_de_passe" placeholder="Créez un mot de passe"  class="element">
+        <input type="password" name="mot_de_passe" placeholder="Créez un mot de passe"  class="element" id="mot_de_passe">
+        <br> <span class="erreur" id="erreurMotDePasse"></span>
        </div>
+<div ><strong class="element6">Confirmer le mot de passe:</strong> <br>
+        <input type="password" name="confirmer_mot_de_passe" placeholder="Confirmez votre mot de passe"  class="element" id="confirmer_mot_de_passe">
+        <br> <span class="erreur" id="erreurConfirmerMotDePasse"></span>
+       </div>
+       
        <div>
-        <button class="sumitCompte">Creer un compte</button>
+        <button class="sumitCompte" id="bouttonCreationCompte" type="button">Creer un compte</button>
        </div>
        </form>
     
@@ -53,6 +67,7 @@
 
 </main>
     
-  
+ 
 </body>
 
+</html>
