@@ -82,43 +82,6 @@ function getJobById(id) {
     return null;
 }
 
-function getPanierEntryById(id) {
-    const keysToCheck = new Set([getPanierKey(), "panier", "panier_guest"]);
-
-    for (let i = 0; i < localStorage.length; i++) {
-        const storageKey = localStorage.key(i);
-        if (storageKey && storageKey.startsWith("panier")) {
-            keysToCheck.add(storageKey);
-        }
-    }
-
-    for (const storageKey of keysToCheck) {
-        const panier = JSON.parse(localStorage.getItem(storageKey)) || [];
-        const index = panier.findIndex(j => String(j.id) === String(id));
-        if (index !== -1) {
-            return { key: storageKey, panier, index };
-        }
-    }
-
-    return null;
-}
-
-function removeJobFromStorage(idJob) {
-    const entry = getPanierEntryById(idJob);
-    if (!entry) {
-        return false;
-    }
-
-    const updatedPanier = entry.panier.filter(j => String(j.id) !== String(idJob));
-    if (updatedPanier.length === 0) {
-        localStorage.removeItem(entry.key);
-    } else {
-        localStorage.setItem(entry.key, JSON.stringify(updatedPanier));
-    }
-
-    return true;
-}
-
 function updateNombreJobDisplay() {
     const nombreJob = document.getElementById("nombreJob");
     if (!nombreJob) return;
@@ -372,6 +335,7 @@ function ajouterJob(event){
     const lieu = document.getElementById("lieu").value;
     const note = document.getElementById("note").value;
     const contrat= document.getElementById("contrat").value;
+        const salaire= document.getElementById("salaire").value;
     
 
     const entrepriseOublie = document.getElementById("entrepriseOublie");
@@ -380,6 +344,7 @@ function ajouterJob(event){
     const statutOublie = document.getElementById("statutOublie");
     const lieuOublie = document.getElementById("lieuOublie");
       const contratOublie = document.getElementById("contratOublie");
+      const salaireOublie= document.getElementById("salaireOublie");
     let erreur=false;
     
 
@@ -390,6 +355,7 @@ function ajouterJob(event){
     statutOublie.innerText = "";
     lieuOublie.innerText = "";
     contratOublie.innerText = "";
+    salaireOublie.innerText="";
 
     // Réinitialiser les classes
     entrepriseOublie.classList.remove("oublie");
@@ -398,6 +364,7 @@ function ajouterJob(event){
     statutOublie.classList.remove("oublie");
     lieuOublie.classList.remove("oublie");
  contratOublie.classList.remove("oublie");
+ salaireOublie.classList.remove("oublie");
     if (entreprise.trim() === "") {
         entrepriseOublie.classList.add("oublie");
         entrepriseOublie.innerText = "Vous devez écrire le nom de l'entreprise";
@@ -428,6 +395,7 @@ function ajouterJob(event){
         contratOublie.innerText = "Vous devez indiquer le type de contrat";
          erreur=true; 
     }
+   
 
     if(erreur){
 return;
@@ -442,6 +410,7 @@ return;
         lieu,
         note,
         contrat,
+        salaire,
         logo: entreprise.trim().charAt(0).toUpperCase()
         
     };
@@ -499,7 +468,7 @@ else{
                  <div class="posteDate">${panier[i].lieu}</div>
                </div>
 
-               <button class="modalModifierSupprimer" data-id="${panier[i].id}">::</button>
+               <button class="modalModifierSupprimer" data-id="${panier[i].id}" onclick="ouvrirModalAction('${panier[i].id}')">::</button>
             </div>
 
 `;
@@ -515,7 +484,7 @@ else{
 
 
 }
-modalModifierSupprimer();
+
 // Mettre à jour l'affichage du compteur au chargement
 updateNombreJobDisplay();
 
@@ -562,13 +531,13 @@ if (zone) {
 <div class ="detail1"> 
 
 <div class="detailTitre">Contrat:</div>
-<div >${job.poste}</div>
+<div >${job.contrat}</div>
 </div>
 
 <div class ="detail1"> 
 
 <div class="detailTitre">Salaire:</div>
-<div >${job.salaire}</div>
+<div >${job.salaire || "Non indiqué"}</div>
 </div>
 
 
@@ -595,6 +564,18 @@ if (zone) {
     }
 }
 
+window.ouvrirModalAction = function(idJob) {
+    const modalAction = document.getElementById("modalAction");
+    const modalConfirm = document.getElementById("modalConfirm");
+    if (!modalAction || !modalConfirm) return;
+
+    modalAction.dataset.id = idJob;
+    modalAction.style.display = "flex";
+    modalConfirm.style.display = "none";
+    modalAction.classList.add("is-open");
+    modalConfirm.classList.remove("is-open");
+};
+
 //la fonction modal pour modifier et supprimer les jobs
 function modalModifierSupprimer(){
 
@@ -604,7 +585,7 @@ function modalModifierSupprimer(){
     if (!modalAction) {
         modalAction = document.createElement("div");
         modalAction.id = "modalAction";
-        modalAction.className = "modal";
+        modalAction.classList.add("modal");
         modalAction.innerHTML = `
             <div class="modalContent">
                 <button id="btnModifier" class="modalBtn">Modifier</button>
@@ -618,7 +599,7 @@ function modalModifierSupprimer(){
     if (!modalConfirm) {
         modalConfirm = document.createElement("div");
         modalConfirm.id = "modalConfirm";
-        modalConfirm.className = "modalSupprimer";
+        modalConfirm.classList.add("modalSupprimer");
         modalConfirm.innerHTML = `
             <div class="modalContent">
                 <div>Voulez-vous supprimer ce job ?</div>
@@ -629,33 +610,9 @@ function modalModifierSupprimer(){
         document.body.appendChild(modalConfirm);
     }
 
-    modalAction.classList.remove("is-open");
-    modalConfirm.classList.remove("is-open");
-    modalAction.style.display = "none";
-    modalConfirm.style.display = "none";
-
-    const listContainer = document.getElementById("zoneAffichageJob");
-    if (listContainer && !listContainer.dataset.modalBound) {
-        listContainer.addEventListener("click", (event) => {
-            const btn = event.target.closest(".modalModifierSupprimer");
-            if (!btn) return;
-
-            event.preventDefault();
-            event.stopPropagation();
-            const idJob = btn.dataset.id;
-            modalAction.dataset.id = idJob;
-            modalAction.classList.add("is-open");
-            modalAction.style.display = "flex";
-            modalConfirm.classList.remove("is-open");
-            modalConfirm.style.display = "none";
-        });
-        listContainer.dataset.modalBound = "true";
-    }
-
     const closeModalActions = document.getElementById("closeModalActions");
     if (closeModalActions) {
         closeModalActions.onclick = () => {
-            modalAction.classList.remove("is-open");
             modalAction.style.display = "none";
         };
     }
@@ -663,9 +620,7 @@ function modalModifierSupprimer(){
     const btnSupprimer = document.getElementById("btnSupprimer");
     if (btnSupprimer) {
         btnSupprimer.onclick = () => {
-            modalAction.classList.remove("is-open");
             modalAction.style.display = "none";
-            modalConfirm.classList.add("is-open");
             modalConfirm.style.display = "flex";
         };
     }
@@ -673,7 +628,6 @@ function modalModifierSupprimer(){
     const confirmNo = document.getElementById("confirmNo");
     if (confirmNo) {
         confirmNo.onclick = () => {
-            modalConfirm.classList.remove("is-open");
             modalConfirm.style.display = "none";
         };
     }
@@ -682,7 +636,10 @@ function modalModifierSupprimer(){
     if (confirmYes) {
         confirmYes.onclick = () => {
             const idJob = modalAction.dataset.id;
-            removeJobFromStorage(idJob);
+            const key = getPanierKey();
+            const panier = JSON.parse(localStorage.getItem(key)) || [];
+            const nouveauPanier = panier.filter(j => j.id != idJob);
+            localStorage.setItem(key, JSON.stringify(nouveauPanier));
             window.location.href = "mesJobs.html";
         };
     }
@@ -705,38 +662,48 @@ if (bouttonModifier) {
 // fonction pour les modifications des jobs
 function modifierJob() {
 
+    // 1. Récupérer l’ID dans l’URL
     const params = new URLSearchParams(window.location.search);
     const idModifier = params.get("id");
 
-    const entry = getPanierEntryById(idModifier);
-    const job = entry ? entry.panier[entry.index] : null;
+    // 2. Charger les jobs depuis localStorage
+    const panier = getStoredPanier();
 
+    // 3. Trouver le job à modifier
+    const job = panier.find(j => j.id == idModifier);
+
+    // 4. Pré-remplir les champs
     if (job) {
-        document.getElementById("entreprise").value = job.entreprise || "";
-        document.getElementById("poste").value = job.poste || "";
-        document.getElementById("date").value = job.date || "";
-        document.getElementById("statut").value = job.statut || "";
-        document.getElementById("lieu").value = job.lieu || "";
-        document.getElementById("contrat").value = job.contrat || "";
+        document.getElementById("entreprise").value = job.entreprise;
+        document.getElementById("poste").value = job.poste;
+        document.getElementById("date").value = job.date;
+        document.getElementById("statut").value = job.statut;
+        document.getElementById("lieu").value = job.lieu;
+        document.getElementById("contrat").value = job.contrat;
+        document.getElementById("salaire").value = job.salaire || "";
         document.getElementById("note").value = job.note || "";
     }
 
+    // 5. Enregistrer les modifications
     document.getElementById("bouttonModifier").addEventListener("click", (event) => {
         event.preventDefault();
 
-        if (!entry) return;
+        const index = panier.findIndex(j => j.id == idModifier);
 
-        entry.panier[entry.index].entreprise = document.getElementById("entreprise").value;
-        entry.panier[entry.index].poste = document.getElementById("poste").value;
-        entry.panier[entry.index].date = document.getElementById("date").value;
-        entry.panier[entry.index].statut = document.getElementById("statut").value;
-        entry.panier[entry.index].lieu = document.getElementById("lieu").value;
-        entry.panier[entry.index].contrat = document.getElementById("contrat").value;
-        entry.panier[entry.index].note = document.getElementById("note").value;
+        panier[index].entreprise = document.getElementById("entreprise").value;
+        panier[index].poste = document.getElementById("poste").value;
+        panier[index].date = document.getElementById("date").value;
+        panier[index].statut = document.getElementById("statut").value;
+        panier[index].lieu = document.getElementById("lieu").value;
+        panier[index].contrat = document.getElementById("contrat").value;
+        panier[index].salaire = document.getElementById("salaire").value;
+        panier[index].note = document.getElementById("note").value;
 
-        localStorage.setItem(entry.key, JSON.stringify(entry.panier));
+        localStorage.setItem(getPanierKey(), JSON.stringify(panier));
 
+        // Mettre à jour l'affichage du compteur
         updateNombreJobDisplay();
+
         window.location.href = "mesJobs.html";
     });
 }
