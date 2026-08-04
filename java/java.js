@@ -8,9 +8,10 @@ import { getAuth ,
      createUserWithEmailAndPassword,
      signInWithEmailAndPassword ,
      onAuthStateChanged,
+     signOut,
 
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { setDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { setDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 
 
@@ -243,16 +244,18 @@ return;
 createUserWithEmailAndPassword(auth, email, mot_de_passe)
     .then((userCree) => {
         const user = userCree.user;
-
-        // Enregistrer les infos dans Firestore (ne bloque pas la redirection)
-        setDoc(doc(db, "utilisateurs", user.uid), {
+        const userData = {
             nom: nom,
             prenom: prenom,
             profession: profession,
             email: email,
-            dateCreation: new Date().toISOString() // Stocke la date de création du compte
-        })
-        
+            dateCreation: new Date().toISOString()
+        };
+
+        localStorage.setItem(`profil_${user.uid}`, JSON.stringify(userData));
+
+        // Enregistrer les infos dans Firestore (ne bloque pas la redirection)
+        setDoc(doc(db, "utilisateurs", user.uid), userData)
         .then(() => console.log("Infos utilisateur enregistrées en Firestore")) 
         .catch((e) => console.error("Erreur enregistrement Firestore:", e));
 
@@ -707,3 +710,136 @@ function modifierJob() {
         window.location.href = "mesJobs.html";
     });
 }
+
+// ouvrir le modal pour le profil la deconnexion et la suppression du compte
+const boutonModal1 = document.getElementById("boutonModal1");
+if (boutonModal1) {
+    boutonModal1.addEventListener("click",ouvrirModal1);
+}
+
+function applyProfileData(data = {}) {
+    const profilNom = document.getElementById("profilNom");
+    const profilPrenom = document.getElementById("profilPrenom");
+    const profilEmail = document.getElementById("profilEmail");
+    const profilProfession = document.getElementById("profilProfession");
+
+    const nom = data.nom || data.name || "";
+    const prenom = data.prenom || data.firstName || "";
+    const email = data.email || auth.currentUser?.email || "";
+    const profession = data.profession || data.metier || "";
+
+    if (profilNom) profilNom.innerText = nom;
+    if (profilPrenom) profilPrenom.innerText = prenom;
+    if (profilEmail) profilEmail.innerText = email;
+    if (profilProfession) profilProfession.innerText = profession;
+}
+
+async function chargerProfilUtilisateur() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const docSnap = await getDoc(doc(db, "utilisateurs", user.uid));
+
+        if (docSnap.exists()) {
+            const data = docSnap.data() || {};
+            applyProfileData(data);
+            localStorage.setItem(`profil_${user.uid}`, JSON.stringify(data));
+            return;
+        }
+    } catch (error) {
+        console.error("Erreur lors du chargement du profil utilisateur:", error);
+    }
+
+    try {
+        const profilLocal = JSON.parse(localStorage.getItem(`profil_${user.uid}`) || "null");
+        if (profilLocal) {
+            applyProfileData(profilLocal);
+            return;
+        }
+    } catch (error) {
+        console.error("Erreur lors de la lecture du profil local:", error);
+    }
+
+    applyProfileData({ email: user.email || "" });
+}
+
+function ouvrirModal1() {
+    const modalProfil = document.getElementById("modalProfil");
+    if (!modalProfil) return;
+    modalProfil.style.display = "flex";
+    chargerProfilUtilisateur();
+}
+
+const btnFermerProfil = document.getElementById("btnFermerProfil");
+if (btnFermerProfil) {
+    btnFermerProfil.addEventListener("click", () => {
+        const modalProfil = document.getElementById("modalProfil");
+        if (!modalProfil) return;
+        modalProfil.style.display = "none";
+    }); 
+}
+
+function creerModalDeconnexion() {
+    const modal = document.createElement("div");
+    modal.id = "modalConfirmDeconnexion";
+    modal.className = "modalProfil";
+    modal.style.display = "none";
+    modal.innerHTML = `
+        <div class="modalProfilContent">
+            <h2>Déconnexion</h2>
+            <p>Voulez-vous vraiment vous déconnecter ?</p>
+            <button id="confirmDeconnexionOui" class="btnDanger">Oui</button>
+            <button id="confirmDeconnexionNon" class="btnClose">Non</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const btnOui = document.getElementById("confirmDeconnexionOui");
+    const btnNon = document.getElementById("confirmDeconnexionNon");
+
+    if (btnOui) {
+        btnOui.addEventListener("click", async () => {
+            try {
+                const user = auth.currentUser;
+                if (user) {
+                    localStorage.removeItem(`profil_${user.uid}`);
+                }
+                await signOut(auth);
+                const modalProfil = document.getElementById("modalProfil");
+                if (modalProfil) modalProfil.style.display = "none";
+                modal.style.display = "none";
+                window.location.href = "connexionCompte.html";
+            } catch (error) {
+                console.error("Erreur lors de la déconnexion:", error);
+            }
+        });
+    }
+
+    if (btnNon) {
+        btnNon.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
+
+    return modal;
+}
+
+const btnDeconnexion = document.getElementById("btnDeconnexion");
+if (btnDeconnexion) {
+    btnDeconnexion.addEventListener("click", () => {
+        let modal = document.getElementById("modalConfirmDeconnexion");
+        if (!modal) {
+            modal = creerModalDeconnexion();
+        }
+        modal.style.display = "flex";
+    });
+}
+
+// Sécurité : vérifier si l'utilisateur est connecté et récupérer ses informations
+onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    await chargerProfilUtilisateur();
+});
+
+

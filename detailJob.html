@@ -16,7 +16,7 @@
     <header>
         <div class="boutonTitreHeader">
             <div>
-                <button class="boutonModal1">
+                <button type="button" class="boutonModal1" id="boutonModal1">
                     <img src="burger bar.jpg" alt="image" class="imageModal1">
                 </button>
             </div>
@@ -61,6 +61,19 @@
    
     </main>
 
+    <div id="modalProfil" class="modalProfil">
+    <div class="modalProfilContent">
+        <h2>Profil utilisateur</h2>
+        <p><strong>Nom :</strong> <span id="profilNom"></span></p>
+        <p><strong>Prénom :</strong> <span id="profilPrenom"></span></p>
+        <p><strong>Email :</strong> <span id="profilEmail"></span></p>
+        <p><strong>Profession :</strong> <span id="profilProfession"></span></p>
+
+        <button id="btnDeconnexion" class="btnDanger">Se déconnecter</button>
+        <button id="btnFermerProfil" class="btnClose">Fermer</button>
+    </div>
+</div>
+  
     </body>
 </html>
     
