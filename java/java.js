@@ -45,26 +45,24 @@ function getPanierKey() {
 
 function getStoredPanier() {
     const key = getPanierKey();
-    let panier = JSON.parse(localStorage.getItem(key)) || [];
-    if (panier.length > 0) return panier;
+    const panier = JSON.parse(localStorage.getItem(key)) || [];
 
-    // Fallback for legacy storage key or guest jobs created before auth loaded
-    panier = JSON.parse(localStorage.getItem("panier")) || [];
-    if (panier.length > 0) return panier;
-
-    panier = JSON.parse(localStorage.getItem("panier_guest")) || [];
-    if (panier.length > 0) return panier;
-
-    // Further fallback: scan any key beginning with panier
-    for (let i = 0; i < localStorage.length; i++) {
-        const storageKey = localStorage.key(i);
-        if (storageKey && storageKey.startsWith("panier_") && storageKey !== key) {
-            const otherPanier = JSON.parse(localStorage.getItem(storageKey)) || [];
-            if (otherPanier.length > 0) return otherPanier;
-        }
+    // Pour un utilisateur connecté, on ne doit lire que sa clé.
+    // Pour un invité, on garde le fallback vers les clés historiques guest/legacy.
+    if (auth.currentUser) {
+        return panier;
     }
 
-    return [];
+    if (panier.length > 0) {
+        return panier;
+    }
+
+    const legacyPanier = JSON.parse(localStorage.getItem("panier")) || [];
+    if (legacyPanier.length > 0) {
+        return legacyPanier;
+    }
+
+    return JSON.parse(localStorage.getItem("panier_guest")) || [];
 }
 
 function getJobById(id) {
@@ -72,6 +70,8 @@ function getJobById(id) {
     const job = panier.find(j => j.id == id);
     if (job) return job;
 
+    // Si le job n’est pas dans le panier courant, on cherche uniquement sur les clefs panier_*
+    // afin d’éviter de retourner des jobs d’un autre utilisateur par erreur.
     for (let i = 0; i < localStorage.length; i++) {
         const storageKey = localStorage.key(i);
         if (!storageKey || !storageKey.startsWith("panier")) continue;
@@ -842,4 +842,44 @@ onAuthStateChanged(auth, async (user) => {
     await chargerProfilUtilisateur();
 });
 
+// mot de passe oublié
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+const bouttonMotDePasseOublie = document.getElementById("bouttonMotDePasseOublie");
+
+if (bouttonMotDePasseOublie) {
+    bouttonMotDePasseOublie.addEventListener("click", functionMotDePasseOublie);
+}
+
+async function functionMotDePasseOublie(event) {
+    event.preventDefault();
+
+    const emailOublie = document.getElementById("emailOublie").value;
+    const erreurMotDePasseOublie = document.getElementById("erreurMotDePasseOublie");
+
+    // Réinitialiser les messages
+    erreurMotDePasseOublie.innerText = "";
+    erreurMotDePasseOublie.classList.remove("oublie", "motDePasseCorrect");
+
+    // Vérifier si l'email est vide
+    if (emailOublie.trim() === "") {
+        erreurMotDePasseOublie.classList.add("oublie");
+        erreurMotDePasseOublie.innerText = "Vous devez entrer votre email";
+        return;
+    }
+
+    try {
+        // Envoi de l'email via Firebase
+        await sendPasswordResetEmail(auth, emailOublie);
+
+        erreurMotDePasseOublie.classList.add("motDePasseCorrect");
+        erreurMotDePasseOublie.innerText =
+            "Un email de réinitialisation a été envoyé dans vos spam est correcte.";
+    } catch (error) {
+        console.error("Erreur Firebase :", error.message);
+
+        erreurMotDePasseOublie.classList.add("oublie");
+        erreurMotDePasseOublie.innerText =
+            "Impossible d'envoyer l'email. Vérifiez l'adresse.";
+    }
+}
