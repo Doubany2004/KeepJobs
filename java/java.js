@@ -658,7 +658,8 @@ function modalModifierSupprimer(){
 
 const bouttonModifier = document.getElementById("bouttonModifier");
 
-if (bouttonModifier) {
+function setupModifierPage() {
+    if (!bouttonModifier) return;
     modifierJob();
 }
 
@@ -668,6 +669,8 @@ function modifierJob() {
     // 1. Récupérer l’ID dans l’URL
     const params = new URLSearchParams(window.location.search);
     const idModifier = params.get("id");
+
+    if (!idModifier) return;
 
     // 2. Charger les jobs depuis localStorage
     const panier = getStoredPanier();
@@ -688,10 +691,11 @@ function modifierJob() {
     }
 
     // 5. Enregistrer les modifications
-    document.getElementById("bouttonModifier").addEventListener("click", (event) => {
+    bouttonModifier.addEventListener("click", (event) => {
         event.preventDefault();
 
         const index = panier.findIndex(j => j.id == idModifier);
+        if (index === -1) return;
 
         panier[index].entreprise = document.getElementById("entreprise").value;
         panier[index].poste = document.getElementById("poste").value;
@@ -710,6 +714,13 @@ function modifierJob() {
         window.location.href = "mesJobs.html";
     });
 }
+
+onAuthStateChanged(auth, (user) => {
+    updateNombreJobDisplay();
+    const zoneAffichageJob = document.getElementById("zoneAffichageJob");
+    if (zoneAffichageJob && typeof affichageJob === 'function') affichageJob();
+    setupModifierPage();
+});
 
 // ouvrir le modal pour le profil la deconnexion et la suppression du compte
 const boutonModal1 = document.getElementById("boutonModal1");
