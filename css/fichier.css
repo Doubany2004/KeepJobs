@@ -57,7 +57,7 @@ color:blue;
 }
 .sloganCompte{
     color: darkgray;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 .descriptionCompte,
 .descriptionConnexion {
@@ -68,13 +68,16 @@ color:blue;
     margin: 0 auto;
     padding: 25px;
     border-radius: 5px;
+    text-align: left;
 }
 .titreCompte1 {
     font-size: 25px;
+    text-align: center;
 }
 .descriptionCompte1{
     color: darkgray;
     margin-top: 10px;
+    text-align: center;
 }
 .formulaireCreationCompte{
     display: flex;
@@ -83,6 +86,15 @@ color:blue;
     margin: 2rem auto 0;
     width: 100%;
     max-width: 100%;
+    text-align: left;
+}
+.formulaireCreationCompte > div {
+    width: 100%;
+}
+.formulaireCreationCompte strong {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.35rem;
 }
 .element{
     width: 100%;
@@ -105,18 +117,23 @@ color:blue;
     margin-right: 0;
     display: block;
     width: 100%;
+    text-align: left;
 }
 .sumitCompte{
  padding: 10px;
-   
     border-radius: 7px;
-background-color: blue;
-color: white;
-border-color: white;
-text-align: center;
-border: none;
-margin-top: 1em;
-
+    background-color: blue;
+    color: white;
+    border-color: white;
+    text-align: center;
+    border: none;
+    margin-top: 1em;
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 .formulaireConnexion{
     display: flex;
@@ -127,11 +144,12 @@ margin-top: 1em;
 }
 .descriptionConnexion{
    width: 22em;
-    height: 26em;
+    min-height: 26em;
     background-color:white;
-    margin-left: 625px;
-    padding-top: 25px;
+    margin: 3rem auto 0;
+    padding: 25px 20px;
     border-radius: 5px;
+    box-sizing: border-box;
    
 }
 .sumitConnexion{
