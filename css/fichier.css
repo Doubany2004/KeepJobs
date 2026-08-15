@@ -72,12 +72,10 @@ color:blue;
 }
 .titreCompte1 {
     font-size: 25px;
-    text-align: center;
 }
 .descriptionCompte1{
     color: darkgray;
     margin-top: 10px;
-    text-align: center;
 }
 .formulaireCreationCompte{
     display: flex;
@@ -121,19 +119,15 @@ color:blue;
 }
 .sumitCompte{
  padding: 10px;
+   
     border-radius: 7px;
-    background-color: blue;
-    color: white;
-    border-color: white;
-    text-align: center;
-    border: none;
-    margin-top: 1em;
-    display: block;
-    width: 100%;
-    max-width: 220px;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: pointer;
+background-color: blue;
+color: white;
+border-color: white;
+text-align: center;
+border: none;
+margin-top: 1em;
+
 }
 .formulaireConnexion{
     display: flex;
@@ -173,18 +167,20 @@ border: none;
     font-size: 1.5em;
 }
 .pageAjoutJob{
-     width: 100em;
-    height: 100em;
-    background-color:rgb(216, 223, 234);
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgb(216, 223, 234);
     text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 .mainAjoutJob{
-width: 22em;
-    height: 65em;
-    background-color:white;
-    margin-left: 600px;
-    padding-top: 25px;
+    width: min(28rem, calc(100% - 2rem));
+    background-color: white;
+    margin: 0 auto;
+    padding: 25px 20px;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .boutonModal1 {
@@ -233,14 +229,16 @@ width: 22em;
 }
 
 .noteArea {
-    width: 282px;
-    height: 80px;
+    width: 100%;
+    min-height: 90px;
+    height: 110px;
     padding: 8px;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 15px;
-    resize: vertical; /* tu peux agrandir vers le bas */
-    margin-right: 5px;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-right: 0;
 }
 
 .noteArea:focus {
@@ -282,19 +280,21 @@ footer{
 .titreFooter{
     color: blue;
    
+   
 }
 .sumitAjout{
- padding: 1em;
- 
-   
+    padding: 10px;
     border-radius: 7px;
-background-color: blue;
-color: white;
-border-color: white;
-text-align: center;
-border: none;
-
-
+    background-color: blue;
+    color: white;
+    border-color: white;
+    text-align: center;
+    border: none;
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    
+    cursor: pointer;
 }
 .pageMesJob{
     background-color:rgb(216, 223, 234);
@@ -369,30 +369,30 @@ border: none;
 }
 .entrepriseJob{
    font-size: 22px;
-   text-transform: none !important;
-   font-style: normal !important;
-   color: black !important;
+   text-transform: none;
+   font-style: normal ;
+   color: black ;
 }
 .posteJob{
     color: gray;
     font-size: 15px;
-    text-transform: none !important;
-    font-style: normal !important;
+    text-transform: none ;
+    font-style: normal ;
 }
 .posteStatut {
-    text-transform: none !important;
-    font-style: normal !important;
+    text-transform: none ;
+    font-style: normal ;
 }
 .posteDate{
     color: gray;
     font-size: 15px;
-    text-transform: none !important;
-    font-style: normal !important;
+    text-transform: none ;
+    font-style: normal ;
 }
 .item1 strong {
-    color: black !important;
-    font-style: normal !important;
-    text-transform: none !important;
+    color: black ;
+    font-style: normal;
+    text-transform: none ;
 }
 .item{
     display: flex;
@@ -423,28 +423,32 @@ border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    justify-content: center;
+    gap: 0.8em;
+    margin: 0 auto;
 }
 
 .imageFooter {
     width: 50px;
     height: 50px;
-     border-radius: 5px;
-    border-color: black
-
+    border-radius: 5px;
+    border-color: black;
+    display: block;
 }
 
 .badge {
-    position: absolute;
-    bottom: 6.5em;        
-    right: 11em;
-    background:blue;
+    position: relative;
+    bottom: 60px;
+    left: 25px;
+    background: blue;
     color: white;
     font-size: 12px;
     padding: 2px 6px;
-   border-radius: 10%;
+    border-radius: 10%;
     font-weight: bold;
-    
+    line-height: 1.2;
+    min-width: 18px;
+    text-align: center;
 }
 
 
